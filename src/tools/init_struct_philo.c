@@ -6,7 +6,7 @@
 /*   By: Teiki <Teiki@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 14:53:26 by Teiki             #+#    #+#             */
-/*   Updated: 2023/01/03 17:48:11 by Teiki            ###   ########.fr       */
+/*   Updated: 2023/01/03 23:18:15 by Teiki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,16 @@ void	init_struct_philo(t_philo *philo, char **tab_info)
 	ft_free_tab(tab_info);
 	philo->thread = malloc(sizeof(pthread_t) * philo->nb_philo);
 	if (!philo->thread)
-		fail_exit2(ERR_MALLOC, philo);
+		fail_exit2(ERR_MALLOC, philo, 0);
 	philo->fork = malloc(sizeof(pthread_mutex_t) * philo->nb_philo);
 	if (!philo->fork)
-		fail_exit2(ERR_MALLOC, philo);
+		fail_exit2(ERR_MALLOC, philo, 0);
 	philo->tab_philo = malloc(sizeof(t_philo_id) * philo->nb_philo);
 	if (!philo->tab_philo)
-		fail_exit2(ERR_MALLOC, philo);
+		fail_exit2(ERR_MALLOC, philo, 0);
 	philo->lock = (int *)ft_calloc(philo->nb_philo, sizeof(int));
 	if (!philo->lock)
-		fail_exit2(ERR_MALLOC, philo);
+		fail_exit2(ERR_MALLOC, philo, 0);
 	init_mutex_and_philo_id(philo);
 	init_time_start_sim(philo);
 }
@@ -50,7 +50,7 @@ void	init_mutex_and_philo_id(t_philo *philo)
 	i = -1;
 	while (++i < philo->nb_philo)
 		if (pthread_mutex_init(&philo->fork[i], NULL) != 0)
-			fail_exit2(ERR_INIT_MUTEX, philo);
+			fail_exit2(ERR_INIT_MUTEX, philo, i);
 	i = -1;
 	while (++i < philo->nb_philo)
 	{

@@ -6,7 +6,7 @@
 /*   By: Teiki <Teiki@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 12:54:00 by Teiki             #+#    #+#             */
-/*   Updated: 2023/01/03 17:39:37 by Teiki            ###   ########.fr       */
+/*   Updated: 2023/01/03 23:20:37 by Teiki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ the following args (last arg is optionnal):\n\t\
 # define ERR_MALLOC "Error with malloc function\n"
 # define ERR_INIT_MUTEX "Error while intializing mutexes\n"
 # define ERR_THREADS "Error while creating threads\n"
-# define ERR_LOCK "Error while locking a mutex\n"
+# define ERR_JOIN "Error while joining threads\n"
 
 typedef struct s_philo_id
 {
@@ -69,10 +69,15 @@ typedef struct s_philo
 }t_philo;
 
 void	fail_exit(char *msg, char **tab_arg);
-void	fail_exit2(char *msg, t_philo *philo);
+void	fail_exit2(char *msg, t_philo *philo, int nb);
+void	destroy_and_exit(t_philo *philo);
 void	init_struct_philo(t_philo *philo, char **tab_info);
 void	activate_simulation(t_philo *philo);
+void	*living(void *arg);
 char	**init_args(char **argv);
 int		central_checking(char **tab_nb);
+int		check_endof_sim(t_philo_id *philo, int death_time);
+int		activity_time(t_philo_id *philo, int time_activity, char c);
+int		eating(t_philo_id *philo);
 
 #endif

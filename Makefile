@@ -6,7 +6,7 @@
 #    By: Teiki <Teiki@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/01 13:00:31 by jlitaudo          #+#    #+#              #
-#    Updated: 2023/01/03 13:52:02 by Teiki            ###   ########.fr        #
+#    Updated: 2023/01/03 22:48:07 by Teiki            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,9 +22,13 @@ LIST_HEAD	:=	philosophers.h
 
 HEAD		:= $(addprefix $(HEAD_DIR), $(LIST_HEAD))
 
-LIST_TOOLS	:=	exit_func.c\
+LIST_TOOLS	:=	activate_simulation.c\
+				activity_time.c\
+				check_endof_sim.c\
+				eating.c\
+				exit_func.c\
 				init_struct_philo.c\
-				philosophing.c\
+				living.c\
 
 TOOLS_DIR	:=	tools/
 TOOLS		:=	$(addprefix $(TOOLS_DIR), $(LIST_TOOLS))
