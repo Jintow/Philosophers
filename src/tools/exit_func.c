@@ -6,7 +6,7 @@
 /*   By: Teiki <Teiki@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 13:52:39 by Teiki             #+#    #+#             */
-/*   Updated: 2022/12/28 16:38:46 by Teiki            ###   ########.fr       */
+/*   Updated: 2023/01/03 10:53:12 by Teiki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ void	fail_exit2(char *msg, t_philo *philo)
 
 	ft_dprintf(2, "%s", msg);
 	i = 0;
-	if (philo->fork)
-	{
-		while (philo->fork[i])
-			pthread_mutex_destroy(philo->fork[i++]);
-		free(philo->fork);
-	}
+	// if (philo->fork)
+	// {
+	// 	while (philo->fork[i] != NULL)
+	// 		pthread_mutex_destroy(&philo->fork[i++]);
+	// 	free(philo->fork);
+	// }
 	if (philo->thread)
 		free(philo->thread);
 	if (philo->tab_philo)

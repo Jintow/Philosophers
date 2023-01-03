@@ -6,7 +6,7 @@
 #    By: Teiki <Teiki@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/01 13:00:31 by jlitaudo          #+#    #+#              #
-#    Updated: 2022/12/28 16:20:43 by Teiki            ###   ########.fr        #
+#    Updated: 2022/12/28 16:52:02 by Teiki            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,7 +89,7 @@ all:		lib ${NAME}
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HEAD)
 			@mkdir -p $(@D)
 			@echo "$(_GREEN)compiling: $<$(_END)"
-			@${CC} ${FLAG} -I $(HEAD_DIR) -I ./Libft/headers -c $< -o $@
+			@${CC} ${FLAG} -I $(HEAD_DIR) -I ./Libft/headers -c $< -o $@ 
 
 $(NAME): 	 $(LIBX_DIR)$(LIBX) ${OBJ} $(HEAD)
 			@echo "$(_BOLD)$(_BLUE)compiling: $@$(_END)"
