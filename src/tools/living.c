@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   living.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlitaudo <jlitaudo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Teiki <Teiki@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 19:35:46 by Teiki             #+#    #+#             */
-/*   Updated: 2023/01/05 18:46:09 by jlitaudo         ###   ########.fr       */
+/*   Updated: 2023/01/05 22:43:34 by Teiki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*living(void *arg)
 
 	philo = (t_philo_id *)arg;
 	if (philo->id % 2 == 0)
-		usleep(2000);
+		usleep(30000);
 	while (1)
 	{
 		if (eating(philo))
@@ -31,7 +31,6 @@ void	*living(void *arg)
 		if (thinking(philo))
 			break ;
 	}
-	// dprintf(2, "%d is dead\n", philo->id + 1);
 	return (NULL);
 }
 
