@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   activate_simulation.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Teiki <Teiki@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jlitaudo <jlitaudo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 22:07:15 by Teiki             #+#    #+#             */
-/*   Updated: 2023/01/03 23:20:54 by Teiki            ###   ########.fr       */
+/*   Updated: 2023/01/04 13:45:23 by jlitaudo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+/*
+	Creation of threads and joining.
+*/
 
 void	activate_simulation(t_philo *philo)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct_philo.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Teiki <Teiki@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jlitaudo <jlitaudo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 14:53:26 by Teiki             #+#    #+#             */
-/*   Updated: 2023/01/03 23:18:15 by Teiki            ###   ########.fr       */
+/*   Updated: 2023/01/05 09:16:50 by jlitaudo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void	init_time_start_sim(t_philo *philo);
 void	init_struct_philo(t_philo *philo, char **tab_info)
 {
 	philo->nb_philo = ft_atoi(tab_info[0]);
-	philo->time_death = ft_atoi(tab_info[1]);
-	philo->time_eat = ft_atoi(tab_info[2]);
-	philo->time_sleep = ft_atoi(tab_info[3]);
+	philo->time_death = ft_atoi(tab_info[1]) * 1000;
+	philo->time_eat = ft_atoi(tab_info[2]) * 1000;
+	philo->time_sleep = ft_atoi(tab_info[3]) * 1000;
 	if (tab_info[4])
 		philo->nb_meal = ft_atoi(tab_info[4]);
 	else

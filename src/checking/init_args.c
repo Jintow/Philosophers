@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   init_args.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Teiki <Teiki@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jlitaudo <jlitaudo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 13:20:19 by Teiki             #+#    #+#             */
-/*   Updated: 2023/01/03 23:30:59 by Teiki            ###   ########.fr       */
+/*   Updated: 2023/01/04 13:44:59 by jlitaudo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+/*
+	Function that joins every argument in one only string which will be
+	then splitted. This is to avoid parsing problem when user mixes different way
+	of input : ex : ./a.out "arg1 arg2" arg3 
+*/
 
 char	**init_args(char **argv)
 {

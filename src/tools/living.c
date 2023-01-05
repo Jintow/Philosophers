@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   living.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Teiki <Teiki@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jlitaudo <jlitaudo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 19:35:46 by Teiki             #+#    #+#             */
-/*   Updated: 2023/01/03 22:53:23 by Teiki            ###   ########.fr       */
+/*   Updated: 2023/01/04 17:43:33 by jlitaudo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	sleeping(t_philo_id *philo)
 	time_gap = (current.tv_sec - philo->time0_sim.tv_sec) * 1000 + \
 			(current.tv_usec - philo->time0_sim.tv_usec) / 1000;
 	printf("%d philosopher %d is sleeping\n", time_gap, philo->id + 1);
-	if (activity_time(philo, philo->time_sleep, 's'))
+	if (activity_time(philo, philo->time_sleep))
 		return (1);
 	return (0);
 }

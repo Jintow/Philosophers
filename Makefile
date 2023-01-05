@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: Teiki <Teiki@student.42.fr>                +#+  +:+       +#+         #
+#    By: jlitaudo <jlitaudo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/01 13:00:31 by jlitaudo          #+#    #+#              #
-#    Updated: 2023/01/03 22:48:07 by Teiki            ###   ########.fr        #
+#    Updated: 2023/01/05 09:26:37 by jlitaudo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,7 +67,7 @@ OBJ_BONUS	:= $(addprefix $(OBJ_DIR), $(LIST_OBJ_B))
 
 # Compiler options
 CC 			:= cc
-FLAG 		:= -Wall -Wextra -Werror 
+FLAG 		:= -Wall -Wextra -Werror
 FLAG_LIB	:= -I ./Libft/headers -L ./Libft/libft.a
 NORM		:= norminette -R -CheckDefine
 
@@ -98,7 +98,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HEAD)
 
 $(NAME): 	 $(LIBX_DIR)$(LIBX) ${OBJ} $(HEAD)
 			@echo "$(_BOLD)$(_BLUE)compiling: $@$(_END)"
-			@${CC} -o ${NAME} ${OBJ} $(LIBX_DIR)${LIBX} $(FlAG_LIB) #-fsanitize=leaks
+			@${CC} -o ${NAME} ${OBJ} $(LIBX_DIR)${LIBX} $(FlAG_LIB) #-fsanitize=thread
 			@echo "$(_BOLD)$(_WHITE)$@ SUCCESSFULLY CREATED$(_END)"
 
 lib:

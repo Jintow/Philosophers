@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Teiki <Teiki@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jlitaudo <jlitaudo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 12:54:00 by Teiki             #+#    #+#             */
-/*   Updated: 2023/01/03 23:25:47 by Teiki            ###   ########.fr       */
+/*   Updated: 2023/01/04 17:43:20 by jlitaudo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char	**init_args(char **argv);
 void	activate_simulation(t_philo *philo);
 void	*living(void *arg);
 int		check_endof_sim(t_philo_id *philo, int death_time);
-int		activity_time(t_philo_id *philo, int time_activity, char c);
+int		activity_time(t_philo_id *philo, int time_activity);
 int		eating(t_philo_id *philo);
 
 #endif

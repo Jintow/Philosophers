@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   eating.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Teiki <Teiki@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jlitaudo <jlitaudo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 22:43:15 by Teiki             #+#    #+#             */
-/*   Updated: 2023/01/03 22:45:24 by Teiki            ###   ########.fr       */
+/*   Updated: 2023/01/05 09:36:05 by jlitaudo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	eating(t_philo_id *philo)
 		return (1);
 	}
 	print_dinner_activity(philo);
-	if (activity_time(philo, philo->time_eat, 'd'))
+	if (activity_time(philo, philo->time_eat))
 	{
 		pthread_mutex_unlock(philo->fork1);
 		pthread_mutex_unlock(philo->fork2);
@@ -37,7 +37,6 @@ int	eating(t_philo_id *philo)
 	pthread_mutex_unlock(philo->fork2);
 	return (0);
 }
-//A savoir : reactualisation du dernier repas au debut ou a la fin du repas?
 
 int	fork_battle(t_philo_id	*philo, pthread_mutex_t	*fork, int *lock)
 {
@@ -48,11 +47,11 @@ int	fork_battle(t_philo_id	*philo, pthread_mutex_t	*fork, int *lock)
 	while (*lock == 1)
 	{
 		gettimeofday(&current, NULL);
-		death_time = (current.tv_sec - philo->last_meal.tv_sec) * 1000 + \
-			(current.tv_usec - philo->last_meal.tv_usec) / 1000;
+		death_time = (current.tv_sec - philo->last_meal.tv_sec) * 1000000 + \
+			(current.tv_usec - philo->last_meal.tv_usec);
 		if (check_endof_sim(philo, death_time))
 			return (1);
-		usleep(300);
+		usleep(1);
 	}
 	pthread_mutex_lock(fork);
 	*lock = 1;
@@ -69,9 +68,9 @@ void	print_dinner_activity(t_philo_id *philo)
 	int				time_gap;
 
 	gettimeofday(&current, NULL);
-	time_gap = (current.tv_sec - philo->time0_sim.tv_sec) * 1000 + \
-		(current.tv_usec - philo->time0_sim.tv_usec) / 1000;
-	printf("%d philosopher %d is eating\n", time_gap, philo->id + 1);
+	time_gap = (current.tv_sec - philo->time0_sim.tv_sec) * 1000000 + \
+		(current.tv_usec - philo->time0_sim.tv_usec);
+	printf("%d philosopher %d is eating\n", time_gap / 1000, philo->id + 1);
 	gettimeofday(&philo->last_meal, NULL);
 	philo->nb_meal_taken += 1;
 }
