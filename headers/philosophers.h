@@ -6,7 +6,7 @@
 /*   By: jlitaudo <jlitaudo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 12:54:00 by Teiki             #+#    #+#             */
-/*   Updated: 2023/01/04 17:43:20 by jlitaudo         ###   ########.fr       */
+/*   Updated: 2023/01/05 18:24:36 by jlitaudo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,12 @@ typedef struct s_philo
 	int				time_eat;
 	int				time_sleep;
 	int				nb_meal;
-	int				is_dead;
+	int				end_of_sim;
 	int				*lock;
 	t_philo_id		*tab_philo;
 	pthread_t		*thread;
 	pthread_mutex_t	*fork;
+	pthread_mutex_t	print;
 }t_philo;
 
 /*	------------ EXIT FUNCTIONS -------------  */
@@ -84,8 +85,8 @@ char	**init_args(char **argv);
 
 void	activate_simulation(t_philo *philo);
 void	*living(void *arg);
-int		check_endof_sim(t_philo_id *philo, int death_time);
-int		activity_time(t_philo_id *philo, int time_activity);
+int		check_endof_sim(t_philo *philo);
+int		activity_time(int time_activity, int id);
 int		eating(t_philo_id *philo);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jlitaudo <jlitaudo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 14:53:26 by Teiki             #+#    #+#             */
-/*   Updated: 2023/01/05 09:16:50 by jlitaudo         ###   ########.fr       */
+/*   Updated: 2023/01/05 13:05:29 by jlitaudo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,18 @@
 void	init_mutex_and_philo_id(t_philo *philo);
 void	init_time_start_sim(t_philo *philo);
 
+// test
 void	init_struct_philo(t_philo *philo, char **tab_info)
 {
 	philo->nb_philo = ft_atoi(tab_info[0]);
-	philo->time_death = ft_atoi(tab_info[1]) * 1000;
-	philo->time_eat = ft_atoi(tab_info[2]) * 1000;
-	philo->time_sleep = ft_atoi(tab_info[3]) * 1000;
+	philo->time_death = ft_atoi(tab_info[1]);
+	philo->time_eat = ft_atoi(tab_info[2]);
+	philo->time_sleep = ft_atoi(tab_info[3]);
 	if (tab_info[4])
 		philo->nb_meal = ft_atoi(tab_info[4]);
 	else
 		philo->nb_meal = -1;
-	philo->is_dead = 0;
+	philo->end_of_sim = 0;
 	ft_free_tab(tab_info);
 	philo->thread = malloc(sizeof(pthread_t) * philo->nb_philo);
 	if (!philo->thread)
@@ -76,6 +77,8 @@ void	init_time_start_sim(t_philo *philo)
 	int				i;
 	struct timeval	time0;
 
+	if (pthread_mutex_init(&philo->print, NULL) != 0)
+		fail_exit2(ERR_INIT_MUTEX, philo, philo->nb_philo);
 	gettimeofday(&time0, NULL);
 	i = -1;
 	while (++i < philo->nb_philo)
