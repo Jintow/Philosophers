@@ -1,61 +1,64 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   living.c                                           :+:      :+:    :+:   */
+/*   eating.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Teiki <Teiki@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jlitaudo <jlitaudo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/29 19:35:46 by Teiki             #+#    #+#             */
-/*   Updated: 2023/01/06 14:54:41 by Teiki            ###   ########.fr       */
+/*   Created: 2023/01/03 22:43:15 by Teiki             #+#    #+#             */
+/*   Updated: 2023/01/05 18:41:02 by jlitaudo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	sleeping(t_philo_id *philo);
-int	thinking(t_philo_id *philo);
+int		fork_battle(t_philo_id	*philo, pthread_mutex_t	*fork, int *lock);
+int		print_dinner_activity(t_philo_id *philo);
 
-void	*living(void *arg)
+int	eating(t_philo_id *philo)
 {
-	t_philo_id		*philo;
-
-	philo = (t_philo_id *)arg;
-	gettimeofday(&philo->last_meal, NULL);
-	if (philo->id % 2 == 0 && philo->nb_philo > 1)
-		usleep(30000);
-	while (1)
+	if (fork_battle(philo, philo->fork1, philo->lock1))
+		return (1);
+	if (philo->nb_philo == 1)
+		return (1);
+	if (fork_battle(philo, philo->fork2, philo->lock2))
 	{
-		if (eating(philo))
-			break ;
-		if (sleeping(philo))
-			break ;
-		if (thinking(philo))
-			break ;
-	}
-	return (NULL);
-}
-
-int	sleeping(t_philo_id *philo)
-{
-	struct timeval	current;
-	int				time_gap;
-
-	pthread_mutex_lock(&philo->p_for_all->print);
-	if (philo->p_for_all->end_of_sim)
-	{
-		pthread_mutex_unlock(&philo->p_for_all->print);
+		pthread_mutex_unlock(philo->fork1);
 		return (1);
 	}
-	gettimeofday(&current, NULL);
-	time_gap = (current.tv_sec - philo->time0_sim.tv_sec) * 1000 + \
-			(current.tv_usec - philo->time0_sim.tv_usec) / 1000;
-	printf("%d philosopher %d is sleeping\n", time_gap, philo->id + 1);
-	pthread_mutex_unlock(&philo->p_for_all->print);
-	activity_time(philo->time_sleep, philo->id);
+	if (print_dinner_activity(philo))
+		return (1);
+	activity_time(philo->time_eat, philo->id);
+	*philo->lock1 = 0;
+	pthread_mutex_unlock(philo->fork1);
+	*philo->lock2 = 0;
+	pthread_mutex_unlock(philo->fork2);
 	return (0);
 }
 
-int	thinking(t_philo_id *philo)
+int	fork_battle(t_philo_id	*philo, pthread_mutex_t	*fork, int *lock)
+{
+	struct timeval	current;
+	int				time_gap;
+
+	pthread_mutex_lock(fork);
+	pthread_mutex_lock(&philo->p_for_all->print);
+	if (philo->p_for_all->end_of_sim)
+	{
+		pthread_mutex_unlock(fork);
+		pthread_mutex_unlock(&philo->p_for_all->print);
+		return (1);
+	}
+	gettimeofday(&current, NULL);
+	time_gap = (current.tv_sec - philo->time0_sim.tv_sec) * 1000 + \
+			(current.tv_usec - philo->time0_sim.tv_usec) / 1000;
+	printf("%d philosopher %d has taken a fork\n", time_gap, philo->id + 1);
+	pthread_mutex_unlock(&philo->p_for_all->print);
+	*lock = 1;
+	return (0);
+}
+
+int	print_dinner_activity(t_philo_id *philo)
 {
 	struct timeval	current;
 	int				time_gap;
@@ -66,10 +69,12 @@ int	thinking(t_philo_id *philo)
 		pthread_mutex_unlock(&philo->p_for_all->print);
 		return (1);
 	}
+	gettimeofday(&philo->last_meal, NULL);
 	gettimeofday(&current, NULL);
+	philo->nb_meal_taken += 1;
 	time_gap = (current.tv_sec - philo->time0_sim.tv_sec) * 1000 + \
-			(current.tv_usec - philo->time0_sim.tv_usec) / 1000;
-	printf("%d philosopher %d is thinking\n", time_gap, philo->id + 1);
+		(current.tv_usec - philo->time0_sim.tv_usec) / 1000;
+	printf("%d philosopher %d is eating\n", time_gap, philo->id + 1);
 	pthread_mutex_unlock(&philo->p_for_all->print);
 	return (0);
 }

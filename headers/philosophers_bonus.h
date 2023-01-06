@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.h                                     :+:      :+:    :+:   */
+/*   philosophers_bonus.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: Teiki <Teiki@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 12:54:00 by Teiki             #+#    #+#             */
-/*   Updated: 2023/01/06 15:04:04 by Teiki            ###   ########.fr       */
+/*   Updated: 2023/01/06 14:59:20 by Teiki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <semaphore.h>
 
 # define TOO_FEW_ARG "Error : too few args : philo must be launch with \
 the following args (last arg is optionnal):\n\t\
@@ -31,9 +32,9 @@ the following args (last arg is optionnal):\n\t\
 
 # define NO_VALID_ARGS "Error : args must be positives int values\n"
 
-# define ERR_NB_PHILO "Error : there must be at least one philo and no more than 200\n"
+# define ERR_NB_PHILO "There must be at least one philo and no more than 200\n"
 
-# define ERR_ARG_VALUE "Error : death, eat or time values must be over 60 ms\n"
+# define ERR_ARG_VALUE "Death, eat or time values must be over 60 ms\n"
 
 # define ERR_MALLOC "Error with malloc function\n"
 # define ERR_INIT_MUTEX "Error while intializing mutexes\n"
@@ -53,10 +54,6 @@ typedef struct s_philo_id
 	int				nb_meal_taken;
 	struct timeval	last_meal;
 	struct timeval	time0_sim;
-	pthread_mutex_t	*fork1;
-	pthread_mutex_t	*fork2;
-	int				*lock1;
-	int				*lock2;
 	struct s_philo	*p_for_all;
 }t_philo_id;
 
@@ -71,9 +68,9 @@ typedef struct s_philo
 	int				*lock;
 	int				bool_print;
 	t_philo_id		*tab_philo;
-	pthread_t		*thread;
-	pthread_mutex_t	*fork;
-	pthread_mutex_t	print;
+	sem_t			fork;
+	sem_t			print;
+
 }t_philo;
 
 /*	------------ EXIT FUNCTIONS -------------  */
