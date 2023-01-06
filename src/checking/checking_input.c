@@ -6,7 +6,7 @@
 /*   By: Teiki <Teiki@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 09:22:19 by Teiki             #+#    #+#             */
-/*   Updated: 2022/12/28 16:27:38 by Teiki            ###   ########.fr       */
+/*   Updated: 2023/01/06 12:09:28 by Teiki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,6 @@ int	overflowing_checking(char **tab);
 
 int	central_checking(char **tab_arg)
 {
-	size_t	size;
-
-	size = ft_size_tab(tab_arg);
-	if (size <= 3)
-		fail_exit(TOO_FEW_ARG, tab_arg);
-	if (size >= 6)
-		fail_exit(TOO_MANY_ARGS, tab_arg);
 	if (!characters_checking(tab_arg))
 		fail_exit(NO_VALID_ARGS, tab_arg);
 	if (!overflowing_checking(tab_arg))

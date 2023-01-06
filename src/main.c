@@ -6,7 +6,7 @@
 /*   By: Teiki <Teiki@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 13:13:42 by Teiki             #+#    #+#             */
-/*   Updated: 2023/01/03 23:30:04 by Teiki            ###   ########.fr       */
+/*   Updated: 2023/01/06 12:06:45 by Teiki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 int	main(int argc, char **argv)
 {
-	char	**tab_info;
 	t_philo	philo;
 
-	if (argc == 1)
+	if (argc <= 4)
 		fail_exit(TOO_FEW_ARG, NULL);
-	tab_info = init_args(&argv[1]);
-	central_checking(tab_info);
-	init_struct_philo(&philo, tab_info);
+	if (argc >= 7)
+		fail_exit(TOO_MANY_ARGS, NULL);
+	central_checking(&argv[1]);
+	init_struct_philo(&philo, &argv[1]);
 	activate_simulation(&philo);
 }

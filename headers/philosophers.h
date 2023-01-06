@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlitaudo <jlitaudo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Teiki <Teiki@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 12:54:00 by Teiki             #+#    #+#             */
-/*   Updated: 2023/01/05 18:24:36 by jlitaudo         ###   ########.fr       */
+/*   Updated: 2023/01/06 13:25:54 by Teiki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,8 @@
 # include <pthread.h>
 # include <sys/time.h>
 # include <stdio.h>
-# include "libft.h"
-# include "ft_printf.h"
-
+# include <stdlib.h>
+# include <unistd.h>
 
 # define TOO_FEW_ARG "Error : too few args : philo must be launch with \
 the following args (last arg is optionnal):\n\t\
@@ -35,6 +34,8 @@ the following args (last arg is optionnal):\n\t\
 # define ERR_INIT_MUTEX "Error while intializing mutexes\n"
 # define ERR_THREADS "Error while creating threads\n"
 # define ERR_JOIN "Error while joining threads\n"
+# define CHAR_INT_MAX "2147483647"
+# define BASE_DEC "0123456789"
 
 typedef struct s_philo_id
 {
@@ -63,6 +64,7 @@ typedef struct s_philo
 	int				nb_meal;
 	int				end_of_sim;
 	int				*lock;
+	int				bool_print;
 	t_philo_id		*tab_philo;
 	pthread_t		*thread;
 	pthread_mutex_t	*fork;
@@ -77,12 +79,16 @@ void	destroy_and_exit(t_philo *philo);
 
 /*	------------ CHECKING FUNCTIONS -------------  */
 
+int		ft_is_valid_format(char *str, char *comparing_base);
+int		ft_strcmp(const char *s1, const char *s2);
 int		central_checking(char **tab_nb);
-void	init_struct_philo(t_philo *philo, char **tab_info);
-char	**init_args(char **argv);
+int		ft_atoi(const char *str);
+void	*ft_calloc(size_t nb, size_t size);
+size_t	ft_strlen(const char *str);
 
 /*	------------ SIMULATION FUNCTIONS -------------  */
 
+void	init_struct_philo(t_philo *philo, char **tab_info);
 void	activate_simulation(t_philo *philo);
 void	*living(void *arg);
 int		check_endof_sim(t_philo *philo);

@@ -6,7 +6,7 @@
 /*   By: Teiki <Teiki@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 19:35:46 by Teiki             #+#    #+#             */
-/*   Updated: 2023/01/05 22:43:34 by Teiki            ###   ########.fr       */
+/*   Updated: 2023/01/06 13:39:04 by Teiki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	*living(void *arg)
 	t_philo_id		*philo;
 
 	philo = (t_philo_id *)arg;
+	gettimeofday(&philo->last_meal, NULL);
 	if (philo->id % 2 == 0)
 		usleep(30000);
 	while (1)

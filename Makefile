@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jlitaudo <jlitaudo@student.42.fr>          +#+  +:+       +#+         #
+#    By: Teiki <Teiki@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/01 13:00:31 by jlitaudo          #+#    #+#              #
-#    Updated: 2023/01/05 09:26:37 by jlitaudo         ###   ########.fr        #
+#    Updated: 2023/01/06 13:42:08 by Teiki            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,8 @@ LIST_TOOLS	:=	activate_simulation.c\
 TOOLS_DIR	:=	tools/
 TOOLS		:=	$(addprefix $(TOOLS_DIR), $(LIST_TOOLS))
 
-LIST_CHECK	:=	init_args.c\
+LIST_CHECK	:=	libft.c\
+				libft2.c\
 				checking_input.c\
 
 CHECK_DIR	:=	checking/
@@ -55,8 +56,6 @@ LIST_SRC_B	:=	$(BONUS)\
 SRC_DIR		:=	src/
 SRC			:=	$(addprefix $(SRC_DIR), $(LIST_SRC))
 
-LIBX_DIR	:=	Libft/
-LIBX		:=	libft.a 
 
 OBJ_DIR		:= obj/
 LIST_OBJ 	:= ${LIST_SRC:.c=.o}
@@ -68,7 +67,6 @@ OBJ_BONUS	:= $(addprefix $(OBJ_DIR), $(LIST_OBJ_B))
 # Compiler options
 CC 			:= cc
 FLAG 		:= -Wall -Wextra -Werror
-FLAG_LIB	:= -I ./Libft/headers -L ./Libft/libft.a
 NORM		:= norminette -R -CheckDefine
 
 # define standard colors
@@ -89,22 +87,17 @@ _WHITE		:=	\x1b[37m
 # 		RULES			#
 #########################
  
-all:		lib ${NAME} 
+all:		${NAME} 
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HEAD)
 			@mkdir -p $(@D)
 			@echo "$(_GREEN)compiling: $<$(_END)"
-			@${CC} ${FLAG} -I $(HEAD_DIR) -I ./Libft/headers -c $< -o $@ 
+			@${CC} ${FLAG} -I $(HEAD_DIR) -c $< -o $@ 
 
-$(NAME): 	 $(LIBX_DIR)$(LIBX) ${OBJ} $(HEAD)
+$(NAME): 	${OBJ} $(HEAD)
 			@echo "$(_BOLD)$(_BLUE)compiling: $@$(_END)"
-			@${CC} -o ${NAME} ${OBJ} $(LIBX_DIR)${LIBX} $(FlAG_LIB) #-fsanitize=thread
+			@${CC} -o ${NAME} ${OBJ} #-fsanitize=thread
 			@echo "$(_BOLD)$(_WHITE)$@ SUCCESSFULLY CREATED$(_END)"
-
-lib:
-			@echo "$(_BOLD)$(_PURPLE) Compilation of $(LIBX) begins $(_END)"
-			@make -C $(LIBX_DIR)
-			@echo
 
 norm:		$(NORM) $(SRC)
 
@@ -116,14 +109,7 @@ fclean: 	clean
 			@rm -f ${NAME}
 			@echo "$(_RED)$(_BOLD)$(NAME) deleted$(_END)"
 
-fcleanall:	clean
-			@make fclean -C $(LIBX_DIR)
-			@echo
-			@rm -f ${NAME}
-			@echo "$(_RED)$(_BOLD)$(NAME) deleted$(_END)"
-
 re: 		fclean $(NAME)
 
-reall:		fcleanall all
 
 .PHONY:		all clean fclean fcleanall re reall

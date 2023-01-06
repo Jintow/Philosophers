@@ -6,7 +6,7 @@
 /*   By: Teiki <Teiki@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 13:52:39 by Teiki             #+#    #+#             */
-/*   Updated: 2023/01/03 23:18:55 by Teiki            ###   ########.fr       */
+/*   Updated: 2023/01/06 13:27:34 by Teiki            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	fail_exit(char *msg, char **tab_arg)
 {
-	ft_dprintf(2, "%s", msg);
-	ft_free_tab(tab_arg);
+	(void)tab_arg;
+	printf("%s", msg);
 	exit(EXIT_FAILURE);
 }
 
@@ -23,7 +23,7 @@ void	fail_exit2(char *msg, t_philo *philo, int nb)
 {
 	int	i;
 
-	ft_dprintf(2, "%s", msg);
+	printf("%s", msg);
 	i = 0;
 	if (philo->fork)
 	{
@@ -37,6 +37,8 @@ void	fail_exit2(char *msg, t_philo *philo, int nb)
 		free(philo->tab_philo);
 	if (philo->lock)
 		free(philo->lock);
+	if (philo->bool_print)
+		pthread_mutex_destroy(&philo->print);
 	exit(EXIT_FAILURE);
 }
 
@@ -50,6 +52,7 @@ void	destroy_and_exit(t_philo *philo)
 		pthread_mutex_destroy(&philo->fork[i]);
 		i++;
 	}
+	pthread_mutex_destroy(&philo->print);
 	free(philo->thread);
 	free(philo->tab_philo);
 	free(philo->lock);
