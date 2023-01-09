@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   eating.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Teiki <Teiki@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jlitaudo <jlitaudo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 22:43:15 by Teiki             #+#    #+#             */
-/*   Updated: 2023/01/06 21:25:16 by Teiki            ###   ########.fr       */
+/*   Updated: 2023/01/09 12:52:26 by jlitaudo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 int		fork_battle(t_philo_id	*philo, pthread_mutex_t	*fork, int *lock);
 int		print_dinner_activity(t_philo_id *philo);
 
+/*
+	Function that wait to lock the 2 forks mutexes.
+	It then actualize the last meal time and print the eating message. 
+*/
 int	eating(t_philo_id *philo)
 {
 	if (fork_battle(philo, philo->fork1, philo->lock1))
@@ -53,8 +57,7 @@ int	fork_battle(t_philo_id	*philo, pthread_mutex_t	*fork, int *lock)
 		return (1);
 	}
 	gettimeofday(&current, NULL);
-	time_gap = (current.tv_sec - philo->time0_sim.tv_sec) * 1000 + \
-			(current.tv_usec - philo->time0_sim.tv_usec) / 1000;
+	time_gap = get_time(current, philo->time0_sim);
 	printf("%d philosopher %d has taken a fork\n", time_gap, philo->id + 1);
 	pthread_mutex_unlock(&philo->p_for_all->print);
 	*lock = 1;
@@ -77,8 +80,7 @@ int	print_dinner_activity(t_philo_id *philo)
 	gettimeofday(&philo->last_meal, NULL);
 	gettimeofday(&current, NULL);
 	philo->nb_meal_taken += 1;
-	time_gap = (current.tv_sec - philo->time0_sim.tv_sec) * 1000 + \
-		(current.tv_usec - philo->time0_sim.tv_usec) / 1000;
+	time_gap = get_time(current, philo->time0_sim);
 	printf("%d philosopher %d is eating\n", time_gap, philo->id + 1);
 	pthread_mutex_unlock(&philo->p_for_all->print);
 	return (0);

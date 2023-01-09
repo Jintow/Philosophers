@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct_philo.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Teiki <Teiki@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jlitaudo <jlitaudo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 14:53:26 by Teiki             #+#    #+#             */
-/*   Updated: 2023/01/06 15:05:09 by Teiki            ###   ########.fr       */
+/*   Updated: 2023/01/09 13:46:16 by jlitaudo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,8 @@ void	init_struct_philo(t_philo *philo, char **tab_info)
 
 void	check_values(t_philo *philo)
 {
-	if (philo->nb_philo == 0 || philo->nb_philo > 200)
+	if (philo->nb_philo == 0)
 		fail_exit(ERR_NB_PHILO, NULL);
-	if (philo->time_death < 60 || philo->time_eat < 60 || philo->time_eat < 60)
-		fail_exit(ERR_ARG_VALUE, NULL);
 	if (philo->nb_meal == 0)
 		exit(EXIT_SUCCESS);
 }

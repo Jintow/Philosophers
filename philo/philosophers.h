@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Teiki <Teiki@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jlitaudo <jlitaudo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 12:54:00 by Teiki             #+#    #+#             */
-/*   Updated: 2023/01/06 16:35:02 by Teiki            ###   ########.fr       */
+/*   Updated: 2023/01/09 13:46:23 by jlitaudo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ the following args (last arg is optionnal):\n\t\
 
 # define NO_VALID_ARGS "Error : args must be positives int values\n"
 
-# define ERR_NB_PHILO "Error : there must be at least one philo and no more than 200\n"
+# define ERR_NB_PHILO "Error : there must be at least one philo and \
+should be no more than 200\n"
 
 # define ERR_ARG_VALUE "Error : death, eat or time values must be over 60 ms\n"
 
@@ -97,8 +98,9 @@ size_t	ft_strlen(const char *str);
 void	init_struct_philo(t_philo *philo, char **tab_info);
 void	activate_simulation(t_philo *philo);
 void	*living(void *arg);
-int		check_endof_sim(t_philo *philo);
+int		wait_end_of_sim(t_philo *philo);
 int		activity_time(int time_activity, int id);
+int		get_time(struct timeval time1, struct timeval time2);
 int		eating(t_philo_id *philo);
 
 #endif

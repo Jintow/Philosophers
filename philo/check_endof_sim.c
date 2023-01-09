@@ -6,14 +6,30 @@
 /*   By: jlitaudo <jlitaudo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 22:08:43 by Teiki             #+#    #+#             */
-/*   Updated: 2023/01/05 11:45:55 by jlitaudo         ###   ########.fr       */
+/*   Updated: 2023/01/09 12:41:12 by jlitaudo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+int	check_endof_sim(t_philo *philo);
 int	check_all_meal_taken(t_philo *philo);
 int	check_is_dead(t_philo_id *philo);
+
+/*
+	Function that check every 2.5 ms if one philo is dead
+	or if every philo has taken all his meals.
+*/
+int	wait_end_of_sim(t_philo *philo)
+{
+	while (1)
+	{
+		if (check_endof_sim(philo))
+			break ;
+		usleep (2500);
+	}
+	return (1);
+}
 
 int	check_endof_sim(t_philo *philo)
 {

@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   exit_func.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Teiki <Teiki@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jlitaudo <jlitaudo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 13:52:39 by Teiki             #+#    #+#             */
-/*   Updated: 2023/01/06 21:27:25 by Teiki            ###   ########.fr       */
+/*   Updated: 2023/01/09 12:41:05 by jlitaudo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+/*
+	Exit function before a dynamically allocated aray.
+*/
 void	fail_exit(char *msg, char **tab_arg)
 {
 	(void)tab_arg;
@@ -19,6 +22,10 @@ void	fail_exit(char *msg, char **tab_arg)
 	exit(EXIT_FAILURE);
 }
 
+/*
+	Exit function for a failure after a dynamically allocated aray and
+	initilized mutexes.
+*/
 void	fail_exit2(char *msg, t_philo *philo, int nb)
 {
 	int	i;
@@ -44,6 +51,9 @@ void	fail_exit2(char *msg, t_philo *philo, int nb)
 	exit(EXIT_FAILURE);
 }
 
+/*
+	Exit Success function. Free arrays and destroy mutexes.
+*/
 void	destroy_and_exit(t_philo *philo)
 {
 	int	i;

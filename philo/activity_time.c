@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   activity_time.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Teiki <Teiki@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jlitaudo <jlitaudo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 22:46:10 by Teiki             #+#    #+#             */
-/*   Updated: 2023/01/06 15:24:42 by Teiki            ###   ########.fr       */
+/*   Updated: 2023/01/09 12:53:31 by jlitaudo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /*
 	Central function for eating and sleeping.
 	It simulates a wait to spend the appropriate time for the activity.
-	usleep(335) is for waiting the minimum amount of time 
 */
 int	activity_time(int time_activity, int id)
 {
@@ -35,4 +34,16 @@ int	activity_time(int time_activity, int id)
 		usleep(250);
 	}
 	return (0);
+}
+
+/*
+	Function that calculates the time in ms between two timeval struct.
+*/
+int	get_time(struct timeval time1, struct timeval time2)
+{
+	int	time;
+
+	time = (time1.tv_sec - time2.tv_sec) * 1000 + \
+			(time1.tv_usec - time2.tv_usec) / 1000;
+	return (time);
 }
