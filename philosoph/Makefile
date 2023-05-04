@@ -6,7 +6,7 @@
 #    By: jlitaudo <jlitaudo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/01 13:00:31 by jlitaudo          #+#    #+#              #
-#    Updated: 2023/01/09 11:25:26 by jlitaudo         ###   ########.fr        #
+#    Updated: 2023/04/18 16:08:09 by jlitaudo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -97,14 +97,14 @@ _WHITE		:=	\x1b[37m
  
 all:		${NAME} 
 
-$(OBJ_DIR)%.o: %.c $(HEAD)
+$(OBJ_DIR)%.o: %.c $(HEAD) Makefile
 			@mkdir -p $(@D)
 			@echo "$(_GREEN)compiling: $<$(_END)"
-			@${CC} ${FLAG} -I $(HEAD_DIR) -c $< -o $@ 
+			@${CC} -pthread ${FLAG} -I $(HEAD_DIR) -c $< -o $@ 
 
 $(NAME): 	${OBJ} $(HEAD)
 			@echo "$(_BOLD)$(_BLUE)compiling: $@$(_END)"
-			@${CC} -o ${NAME} ${OBJ} #-fsanitize=thread
+			@${CC} -pthread -o ${NAME} ${OBJ} #-fsanitize=thread
 			@echo "$(_BOLD)$(_WHITE)$@ SUCCESSFULLY CREATED$(_END)"
 
 norm:		$(NORM) $(SRC)

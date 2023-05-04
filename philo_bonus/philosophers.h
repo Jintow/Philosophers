@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Teiki <Teiki@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jlitaudo <jlitaudo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 12:54:00 by Teiki             #+#    #+#             */
-/*   Updated: 2023/01/06 23:02:16 by Teiki            ###   ########.fr       */
+/*   Updated: 2023/04/18 16:16:34 by jlitaudo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PHILOSOPHERS_H
 
 # include <pthread.h>
+# include <fcntl.h>
 # include <sys/time.h>
 # include <stdio.h>
 # include <stdlib.h>
